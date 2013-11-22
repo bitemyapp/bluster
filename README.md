@@ -10,7 +10,7 @@ coming later (schema, clj-schema, core.typed).
 
 ## Leiningen
 
-!["Leiningen version"](https://clojars.org/brambling/latest-version.svg)
+!["Leiningen version"](https://clojars.org/bluster/latest-version.svg)
 
 ## What it does right now
 
