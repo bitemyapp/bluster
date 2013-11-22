@@ -12,6 +12,18 @@ coming later (schema, clj-schema, core.typed).
 
 !["Leiningen version"](https://clojars.org/brambling/latest-version.svg)
 
+## What it does right now
+
+Saves some boilerplate in the resultant JSON
+
+## What it might do in the future
+
+http://docs.emmet.io esque DSL
+
+## What it will never do
+
+Never going to make it implement the whole RESTful service/server for you like Octohipster
+
 ## Example
 
 ```clojure
