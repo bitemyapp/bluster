@@ -102,7 +102,7 @@ coming later (schema, clj-schema, core.typed).
 
 Screenshot of the above:
 
-!["example image of blackwater output"](screenie.png)
+!["example image of blackwater output"](resources/screenie.png)
 
 ## License
 
