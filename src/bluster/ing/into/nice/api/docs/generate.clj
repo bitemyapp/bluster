@@ -1,5 +1,4 @@
-(ns bluster.ing.into.nice.api.docs.generate
-  (:require [cheshire.core :refer :all]))
+(ns bluster.ing.into.nice.api.docs.generate)
 
 ;; Resource:  (:resourcePath :models :apiVersion :swaggerVersion :basePath :apis)
 ;; Model:     (:uniqueItems :properties :id :type :required)
@@ -48,16 +47,18 @@
                         :description ""} property)
         type-of (:type property)
         format  (:format property)]
-    (or (and (= type-of "integer") (not format) (assoc initial :format "int64")) initial)))
+    [name (or (and (= type-of "integer") (not format) (assoc initial :format "int64")) initial)]))
 
 (defn scaffold-model [[name model]]
-  (let [properties (:properties model)]
+  (let [properties (:properties model)
+        new-props (mapv scaffold-property properties)]
     (assert (seq properties) "Must have properties list for the model or it's a no-op")
-    (-> (merge {:uniqueItems []
-                :required false
-                :type "any"
-                :id name} model)
-        (assoc :properties (into {} (mapv scaffold-property properties))))))
+    [name
+     (-> (merge {:uniqueItems []
+                 :required false
+                 :type "any"
+                 :id name} model)
+         (assoc :properties (into {} new-props)))]))
 
 (defn scaffold-resource [resource]
   (assert (:resourcePath resource) "I can default the basePath to / but you have to provide a resource path.")

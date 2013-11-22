@@ -30,7 +30,7 @@
                  :errorResponses
                  [{:reason "No users matching query" :code 404}]}]})
 
-(def good-resource
+(def user-resource
   {:resourcePath "/user"
    :basePath     "/api/v1/woohoo"
    :apiVersion   "1.0"
@@ -40,54 +40,65 @@
 
 (def generated-resource
   {:apis
-   [{:path "/query",
-     :operations
-     [{:errorResponses [{:reason "No users matching query", :code 404}],
-       :responseClass "Array[User]",
-       :httpMethod "GET",
-       :parameters
-       [{:allowMultiple false,
-         :name "limit",
-         :paramType "query",
-         :dataType "integer",
+   [{:operations
+     [{:parameters
+       [{:name "limit",
+         :description "",
          :required true,
-         :description ""}
-        {:allowMultiple false,
-         :name "offset",
-         :paramType "query",
+         :allowMultiple false,
          :dataType "integer",
+         :paramType "query"}
+        {:name "offset",
+         :description "",
          :required true,
-         :description ""}
-        {:allowMultiple false,
-         :name "query",
-         :paramType "query",
+         :allowMultiple false,
+         :dataType "integer",
+         :paramType "query"}
+        {:name "query",
+         :description "",
+         :required true,
+         :allowMultiple false,
          :dataType "string",
-         :required true,
-         :description ""}],
+         :paramType "query"}],
+       :httpMethod "GET",
+       :summary "queries for users",
+       :errorResponses [{:reason "No users matching query", :code 404}],
        :nickname "",
-       :summary "queries for users"}],
+       :responseClass "Array[User]"}],
+     :path "/query",
      :description "Paginated querying of users"}],
    :models
-   {:properties
-    {:uniqueItems false,
-     :type "Date",
+   {:User
+    {:properties
+     {:userId
+      {:format "int64",
+       :uniqueItems false,
+       :type "integer",
+       :required false,
+       :description ""},
+      :username
+      {:uniqueItems false,
+       :type "string",
+       :required false,
+       :description ""},
+      :joined
+
+      {:uniqueItems false,
+       :type "Date",
+       :required false,
+       :description ""}},
+     :uniqueItems [],
      :required false,
-     :format "int64",
-     :description ""},
-    :uniqueItems [],
-    :required false,
-    :type "any",
-    :id :User},
+     :type "any",
+     :id :User}},
    :resourcePath "/user",
    :basePath "/api/v1/woohoo",
    :apiVersion "1.0",
-   :swaggerVersion
-   "1.0"})
-
+   :swaggerVersion "1.0"})
 
 (deftest scaffolding
   (testing "Bad specs fail"
     (is (thrown? AssertionError (scaffold-resource bad-resource))))
 
   (testing "Good specs succeed"
-    (is (= generated-resource (scaffold-resource good-resource)))))
+    (is (= generated-resource (scaffold-resource user-resource)))))
